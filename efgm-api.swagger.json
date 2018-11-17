@@ -1,0 +1,129 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/api/users": {
+      "get": {
+        "summary": "/api/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "username": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "password": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "username",
+                  "password",
+                  "role",
+                  "createdAt",
+                  "updatedAt"
+                ]
+              }
+            }
+          },
+          "304": {}
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "/api/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "null",
+                  "example": null
+                },
+                "role": {
+                  "type": "string",
+                  "example": "ROLE_USER"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2018-11-17T02:01:02.500Z"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2018-11-17T02:01:02.500Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "/auth/login",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "summary": "/auth/signup",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    }
+  },
+  "info": {
+    "title": "efgm-api",
+    "version": "0.0.1",
+    "description": "[Specification JSON](/api-spec)"
+  }
+}
