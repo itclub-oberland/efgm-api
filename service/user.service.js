@@ -1,9 +1,9 @@
-const UserModel = require("../model/user.model");
-const UserService = UserModel.User;
-const Op = UserModel.Op;
+const userModelModule = require("../model/user.model");
+const UserModel = userModelModule.User;
+const Op = userModelModule.Op;
 
-async function getUser(username) {
-    return UserService.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
+async function getUserByUsername(username) {
+    return UserModel.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
         return user;
     }).catch((err) => {
         console.log("Uh oh:", err);
@@ -11,12 +11,18 @@ async function getUser(username) {
     });
 }
 
-async function findUser(username, password) {
-    return UserService.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
+async function findUserByUsernameAndPassword(username, password) {
+    return UserModel.findOne({
+        where: {
+            username: {
+                [Op.eq]: username
+            }
+        }
+    }).then(user => {
         if (user && user.dataValues.password === password) {
             return user.dataValues;
         }
-        throw {message: "UserService not found!"};
+        throw {message: "User not found!"};
     }).catch((err) => {
         console.log("Uh oh:", err);
         return null;
@@ -24,7 +30,7 @@ async function findUser(username, password) {
 }
 
 async function createUser(username, password) {
-    return UserService.create({username, password, role: "ROLE_USER"}).then(user => {
+    return UserModel.create({username, password, role: "ROLE_USER"}).then(user => {
         return user;
     }).catch((err) => {
         console.log("Uh oh:", err);
@@ -32,10 +38,54 @@ async function createUser(username, password) {
     });
 }
 
+async function removeUserById(userId) {
+    return UserModel.destroy({
+        where: {
+            id: {
+                [Op.eq]: userId
+            }
+        }
+    }).then((operationCode) => {
+        return Boolean(operationCode);
+    }).catch((err) => {
+        console.log("Uh oh:", err);
+        return null;
+    });
+}
+
+async function updateUserById(userId, updatedUser) {
+    return UserModel.findOne(
+        {
+            where:
+                {
+                    id:
+                        {[Op.eq]: userId}
+                }
+        }).then((user) => {
+        return user.update({
+            username: updatedUser.username,
+            password: updatedUser.password,
+            role: updatedUser.role
+        }, {fields:['username','password','role']}).then((updatedUser) => {
+            return updatedUser.dataValues;
+        })
+    }).catch((err) => {
+        console.log("Uh oh:", err);
+        return null;
+    });
+}
+
 async function all() {
-    return UserService.findAll().then(users => {
+    return UserModel.findAll().then(users => {
         return users;
     });
 }
 
-module.exports = {findUser, createUser, all, getUser};
+module.exports = {
+    findUser: findUserByUsernameAndPassword,
+    createUser,
+    all,
+    getUser: getUserByUsername,
+    removeUserById: removeUserById,
+    updateUserById:updateUserById
+};

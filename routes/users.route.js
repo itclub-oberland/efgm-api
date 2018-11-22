@@ -25,4 +25,36 @@ authRouter.define()
             })
     });
 
+
+authRouter.define()
+    .path("/users/:id")
+    // .needsAuthentication()
+    // .withRoles(["ROLE_ADMIN"])
+    .delete(async function (req, res) {
+        await userService.removeUserById(req.params.id)
+            .then(operationStatus => {
+                if (operationStatus) {
+                    return res.status(200);
+                } else {
+                    return res.status(404);
+                }
+            }).catch((err) => {
+                return res.status(500).json({message: "Couldn't delete User! An error occurred."});
+            })
+    })
+    .and()
+    // .needsAuthentication()
+    // .withRoles(["ROLE_ADMIN"])
+    .put(async function (req, res) {
+        let userObj = {username: req.body.username, password: req.body.password, role: req.body.role};
+        await userService.updateUserById(req.params.id, userObj)
+            .then((updatedUser) => {
+                console.log("alo:", updatedUser);
+                return res.status(200).json(updatedUser);
+            })
+            .catch((err) => {
+                return res.status(500).json({message: "Couldn't update User! An error occured."});
+            });
+    });
+
 module.exports = authRouter.getRouter();

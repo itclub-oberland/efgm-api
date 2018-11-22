@@ -1,11 +1,12 @@
 {
   "name": "efgm-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "main": "www",
   "author": "Zafer Dogan",
   "scripts": {
     "start": "node ./bin/www",
+    "observe": "nodemon ./bin/www",
     "test": "mocha"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "mocha": "^2.4.5",
-    "request": "latest"
+    "request": "latest",
+    "nodemon": "^1.18.6"
   }
 }

@@ -7,16 +7,10 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
-      }
-    },
-    "/api/users": {
-      "get": {
-        "summary": "/api/users",
-        "consumes": [
+        "parameters": [],
+        "produces": [
           "application/json"
         ],
-        "parameters": [],
         "responses": {
           "200": {
             "schema": {
@@ -28,16 +22,10 @@
                     "type": "number"
                   },
                   "username": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "password": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "role": {
                     "type": "string"
@@ -59,47 +47,52 @@
                 ]
               }
             }
-          },
-          "304": {}
-        },
-        "produces": [
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "summary": "/api/users",
+        "consumes": [
           "application/json"
-        ]
+        ],
+        "parameters": []
       },
       "post": {
         "summary": "/api/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
+        "parameters": []
+      }
+    },
+    "/api/users/{id}": {
+      "delete": {
+        "summary": "/api/users/{id}",
+        "consumes": [
           "application/json"
         ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "null",
-                  "example": null
-                },
-                "role": {
-                  "type": "string",
-                  "example": "ROLE_USER"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "example": "2018-11-17T02:01:02.500Z"
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2018-11-17T02:01:02.500Z"
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
           }
-        }
+        ]
+      },
+      "put": {
+        "summary": "/api/users/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
       }
     },
     "/auth/login": {
@@ -123,7 +116,7 @@
   },
   "info": {
     "title": "efgm-api",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "[Specification JSON](/api-spec)"
   }
 }
