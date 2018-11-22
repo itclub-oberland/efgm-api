@@ -1,5 +1,6 @@
 let express = require('express');
 let path = require('path');
+let fs = require('fs');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let sassMiddleware = require('node-sass-middleware');
@@ -25,7 +26,12 @@ expressOasGenerator.init(app,
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//Setup logger
+// create a write stream (in append mode)
+let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+app.use(logger('combined',{ stream: accessLogStream }));
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());

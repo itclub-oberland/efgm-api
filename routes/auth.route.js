@@ -1,6 +1,5 @@
 const authRouter = require("../auth/authrouter")(require("express").Router());
 const jwt = require("jsonwebtoken");
-
 const userService = require("../service/user.service");
 
 authRouter.define()

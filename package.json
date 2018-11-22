@@ -23,13 +23,15 @@
     "passport-jwt": "^4.0.0",
     "pug": "2.0.0-beta11",
     "sequelize": "^4.41.2",
-    "sqlite3": "^4.0.4"
+    "sqlite3": "^4.0.4",
+    "moment": "latest"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "mocha": "^2.4.5",
+    "nodemon": "^1.18.6",
     "request": "latest",
-    "nodemon": "^1.18.6"
+    "winston": "^3.1.0"
   }
 }

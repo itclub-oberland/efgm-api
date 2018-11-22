@@ -1,5 +1,5 @@
 let authRouter = require("../auth/authrouter")(require("express").Router());
-
+const logger = require("../util/logger");
 let userService = require("../service/user.service");
 
 authRouter.define()
@@ -49,10 +49,10 @@ authRouter.define()
         let userObj = {username: req.body.username, password: req.body.password, role: req.body.role};
         await userService.updateUserById(req.params.id, userObj)
             .then((updatedUser) => {
-                console.log("alo:", updatedUser);
                 return res.status(200).json(updatedUser);
             })
             .catch((err) => {
+                logger.error("Updating user failed:", err);
                 return res.status(500).json({message: "Couldn't update User! An error occured."});
             });
     });

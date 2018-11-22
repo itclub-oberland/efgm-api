@@ -7,48 +7,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "role": {
-                    "type": "string"
-                  },
-                  "createdAt": {
-                    "type": "string"
-                  },
-                  "updatedAt": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "username",
-                  "password",
-                  "role",
-                  "createdAt",
-                  "updatedAt"
-                ]
-              }
-            }
-          }
-        }
+        "parameters": []
       }
     },
     "/api/users": {
