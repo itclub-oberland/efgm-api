@@ -1,4 +1,6 @@
 const userModelModule = require("../model/user.model");
+const personModelModule = require("../model/person.model");
+const PersonModel = personModelModule.Person;
 const UserModel = userModelModule.User;
 const Op = userModelModule.Op;
 
@@ -30,8 +32,14 @@ async function findUserByUsernameAndPassword(username, password) {
 }
 
 async function createUser(username, password) {
-    return UserModel.create({username, password, role: "ROLE_USER"}).then(user => {
-        return user;
+    return PersonModel.create({firstname: "Max", lastname: "Muster"}).then(person => {
+        console.log(person.dataValues);
+        return UserModel.create({username, password, role: "ROLE_USER"}).then(user => {
+            return user;
+        }).catch((err) => {
+            console.log("Uh oh:", err);
+            return null;
+        });
     }).catch((err) => {
         console.log("Uh oh:", err);
         return null;
@@ -66,7 +74,7 @@ async function updateUserById(userId, updatedUser) {
             username: updatedUser.username,
             password: updatedUser.password,
             role: updatedUser.role
-        }, {fields:['username','password','role']}).then((updatedUser) => {
+        }, {fields: ['username', 'password', 'role']}).then((updatedUser) => {
             return updatedUser.dataValues;
         })
     }).catch((err) => {
@@ -87,5 +95,5 @@ module.exports = {
     all,
     getUser: getUserByUsername,
     removeUserById: removeUserById,
-    updateUserById:updateUserById
+    updateUserById: updateUserById
 };

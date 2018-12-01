@@ -1,24 +1,23 @@
 const Sequelize = require("sequelize");
+// TODO: take sqlite name from env or other, singular place
 const sequelize = new Sequelize('sqlite:./efgm.db');
 const Op = Sequelize.Op;
 
-const UserModel = sequelize.define('user', {
+const userModel = require("./user.model");
+
+const PersonModel = sequelize.define('person', {
     id: {
         primaryKey: true,
         type: Sequelize.INTEGER
     },
-    username: {
+    firstname: {
         type: Sequelize.STRING
     },
-    password: {
+    lastname: {
         type: Sequelize.STRING
     },
-    /**
-     * TODO: Needs to be roles, array
-     * TOD: Adjust routes/services as well
-     * */
-    role: {
-        type: Sequelize.STRING
+    birthdate: {
+        type: Sequelize.DATE
     },
     createdAt: {
         type: Sequelize.DATE
@@ -28,12 +27,14 @@ const UserModel = sequelize.define('user', {
     }
 });
 
+PersonModel.belongsTo(userModel.User, {foreignKey: "fk_user"});
+
 // create all the defined tables in the specified database.
 sequelize.sync()
-    .then(() => console.log('users table has been successfully created, if one doesn\'t exist'))
+    .then(() => console.log('person table has been successfully created, if one doesn\'t exist'))
     .catch(error => console.log('This error occured', error));
 
 module.exports = {
-    User: UserModel,
+    Person: PersonModel,
     Op
 };
