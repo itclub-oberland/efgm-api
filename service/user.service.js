@@ -1,11 +1,9 @@
-const userModelModule = require("../model/user.model");
-const personModelModule = require("../model/person.model");
-const PersonModel = personModelModule.Person;
-const UserModel = userModelModule.User;
-const Op = userModelModule.Op;
+const persistenceConfig = require("../persistence/config");
+const {User, Person} = persistenceConfig.models;
+const Op = persistenceConfig.operators.Op;
 
 async function getUserByUsername(username) {
-    return UserModel.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
+    return User.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
         return user;
     }).catch((err) => {
         console.log("Uh oh:", err);
@@ -14,7 +12,7 @@ async function getUserByUsername(username) {
 }
 
 async function findUserByUsernameAndPassword(username, password) {
-    return UserModel.findOne({
+    return User.findOne({
         where: {
             username: {
                 [Op.eq]: username
@@ -32,22 +30,33 @@ async function findUserByUsernameAndPassword(username, password) {
 }
 
 async function createUser(username, password) {
-    return PersonModel.create({firstname: "Max", lastname: "Muster"}).then(person => {
-        console.log(person.dataValues);
-        return UserModel.create({username, password, role: "ROLE_USER"}).then(user => {
-            return user;
-        }).catch((err) => {
-            console.log("Uh oh:", err);
-            return null;
-        });
-    }).catch((err) => {
-        console.log("Uh oh:", err);
-        return null;
+    return User.create({
+        username,
+        password,
+        role: "ROLE_USER",
+        person: {
+            firstname: "Hans",
+            lastname: "Muster",
+            birthdate: Date.now(),
+            addresses: []
+        }
+    }, {
+        include: [
+            {
+                association: User.Person,
+                include: [
+                    {
+                        association: Person.Addressses
+                    }
+                ]
+            }]
+    }).then((user) => {
+        return user;
     });
 }
 
 async function removeUserById(userId) {
-    return UserModel.destroy({
+    return User.destroy({
         where: {
             id: {
                 [Op.eq]: userId
@@ -62,7 +71,7 @@ async function removeUserById(userId) {
 }
 
 async function updateUserById(userId, updatedUser) {
-    return UserModel.findOne(
+    return User.findOne(
         {
             where:
                 {
@@ -84,7 +93,7 @@ async function updateUserById(userId, updatedUser) {
 }
 
 async function all() {
-    return UserModel.findAll().then(users => {
+    return User.findAll().then(users => {
         return users;
     });
 }

@@ -6,6 +6,8 @@ let logger = require('morgan');
 let sassMiddleware = require('node-sass-middleware');
 const expressOasGenerator = require('express-oas-generator');
 
+require("./persistence/config").init();
+
 let indexRouter = require('./routes/index.route');
 let usersRouter = require('./routes/users.route');
 let authRouter = require('./routes/auth.route');
@@ -22,14 +24,14 @@ expressOasGenerator.init(app,
     'efgm-api.swagger.json',
     60 * 1000);
 
-// view engine setup
+// view engine init
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 //Setup logger
 // create a write stream (in append mode)
-let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
-app.use(logger('combined',{ stream: accessLogStream }));
+let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+app.use(logger('combined', {stream: accessLogStream}));
 app.use(logger('dev'));
 
 app.use(express.json());
