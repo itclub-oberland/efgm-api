@@ -24,10 +24,6 @@ expressOasGenerator.init(app,
     'efgm-api.swagger.json',
     60 * 1000);
 
-// view engine init
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
 //Setup logger
 // create a write stream (in append mode)
 let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});

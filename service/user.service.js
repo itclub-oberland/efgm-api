@@ -38,7 +38,7 @@ async function createUser(username, password) {
             firstname: "Hans",
             lastname: "Muster",
             birthdate: Date.now(),
-            addresses: []
+            addresses: [{}]
         }
     }, {
         include: [
