@@ -6,6 +6,7 @@ let Log = require("./model/log.model").Log;
 let Skill = require("./model/skill.model").Skill;
 let Profile = require("./model/profile.model").Profile;
 let Resource = require("./model/resource.model").Resource;
+let Offer = require("./model/offer.model").Offer;
 
 let {sequelize, Sequelize} = require("./connection");
 
@@ -32,16 +33,20 @@ module.exports = {
         User.Person = User.hasOne(Person);
         User.Logs = User.hasMany(Log, {as: "History"});
         User.Profile = User.hasOne(Profile);
-        User.Roles = User.belongsToMany(Role, {through: "UserRole"});
+        User.Roles = User.belongsToMany(Role, {through: "user_role"});
+        User.Offers = User.belongsToMany(Offer, {through: "user_offer"});
 
-        Role.belongsToMany(User, {through: "UserRole"});
+        Offer.Resources = Resource.belongsToMany(Offer, {through: "offer_resource"});
+        Offer.Location = Address.belongsToMany(Offer, {through: "offer_location"});
 
-        Person.Addressses = Person.hasMany(Address);
+        Role.belongsToMany(User, {through: "user_role"});
+
+        Person.Addressses = Person.belongsToMany(Address, {through: "person_address"});
 
         Profile.Skills = Profile.hasMany(Skill);
-        Profile.Resources = Profile.belongsToMany(Resource, {through: "ProfileResource"});
+        Profile.Resources = Profile.belongsToMany(Resource, {through: "profile_resource"});
 
-        Resource.belongsToMany(Profile, {through: "ProfileResource"});
+        Resource.belongsToMany(Profile, {through: "profile_resource"});
 
         // create all the defined tables in the specified database
         sequelize.sync()
@@ -59,7 +64,8 @@ module.exports = {
         Log,
         Skill,
         Profile,
-        Resource
+        Resource,
+        Offer
     },
     operators:
         {
