@@ -29,5 +29,3 @@ SECRET
 For retrieving settings from .env, dotenv is used.
 
 Testing libary used is: Mochajs with Chai.
-
-Test...
