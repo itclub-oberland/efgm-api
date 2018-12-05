@@ -21,7 +21,7 @@ To run the tests, type npm test.
 To start the server, type npm start.
 
 You need to have a .env file for environemental settings.
-Currently, there are three keys you need to set:
+Currently, there are three keys you need to be set:
 HOST
 PORT
 SECRET
