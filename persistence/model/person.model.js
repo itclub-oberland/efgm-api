@@ -18,6 +18,15 @@ const Person = sequelize.define('person', {
     }
 });
 
+// Ensure certain values are never returned to end user
+Person.prototype.toJSON = function () {
+    let values = Object.assign({}, this.get());
+
+    delete values.createdAt;
+    delete values.updatedAt;
+    return values;
+};
+
 module.exports = {
     Person
 };

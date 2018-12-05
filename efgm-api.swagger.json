@@ -27,6 +27,22 @@
       }
     },
     "/api/users/{id}": {
+      "get": {
+        "summary": "/api/users/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "304": {}
+        }
+      },
       "delete": {
         "summary": "/api/users/{id}",
         "consumes": [
@@ -60,29 +76,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "type": "string",
-                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGFjaW1zIiwiaWF0IjoxNTQzOTY5OTg2LCJleHAiOjE1NDQwNTYzODZ9.qFiPJvjYgNQrIlIn2TGVdDq7NyTFMKxiIlNAGVXD5bc"
-                }
-              }
-            }
-          },
-          "401": {
-            "schema": {
-              "type": "integer",
-              "example": 0
-            }
-          }
-        }
+        "parameters": []
       }
     },
     "/auth/signup": {

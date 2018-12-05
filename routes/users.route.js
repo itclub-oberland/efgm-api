@@ -30,6 +30,18 @@ authRouter.define()
     .path("/users/:id")
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
+    .get(async function (req, res) {
+        await userService.getUserById(req.params.id).then((user) => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({message: "User not found"})
+            }
+        });
+    })
+    .and()
+    // .needsAuthentication()
+    // .withRoles(["ROLE_ADMIN"])
     .delete(async function (req, res) {
         await userService.removeUserById(req.params.id)
             .then(operationStatus => {

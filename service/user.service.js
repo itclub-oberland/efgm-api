@@ -31,19 +31,20 @@ async function createUser(username, password) {
     });
 }
 
-async function removeUserById(userId) {
-    return User.destroy({
-        where: {
-            id: {
-                [Op.eq]: userId
+async function getUserById(userId) {
+    return User.findOne({
+        where:
+            {
+                id:
+                    {[Op.eq]: userId}
             }
+    }).then((user) => {
+        return user;
+    }).catch((ex) => {
+            console.log("Uh oh: ", ex);
+            return null;
         }
-    }).then((operationCode) => {
-        return Boolean(operationCode);
-    }).catch((err) => {
-        console.log("Uh oh:", err);
-        return null;
-    });
+    );
 }
 
 async function updateUserById(userId, updatedUser) {
@@ -68,6 +69,21 @@ async function updateUserById(userId, updatedUser) {
     });
 }
 
+async function removeUserById(userId) {
+    return User.destroy({
+        where: {
+            id: {
+                [Op.eq]: userId
+            }
+        }
+    }).then((operationCode) => {
+        return Boolean(operationCode);
+    }).catch((err) => {
+        console.log("Uh oh:", err);
+        return null;
+    });
+}
+
 async function all() {
     return User.findAll().then(users => {
         return users;
@@ -78,6 +94,7 @@ module.exports = {
     createUser,
     all,
     getUserByUsername,
+    getUserById,
     removeUserById,
     updateUserById
 };

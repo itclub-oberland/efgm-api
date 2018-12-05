@@ -31,6 +31,17 @@ User.prototype.validPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
+// Ensure certain values are never returned to end user
+User.prototype.toJSON = function () {
+    let values = Object.assign({}, this.get());
+
+    delete values.password;
+    delete values.id;
+    delete values.createdAt;
+    delete values.updatedAt;
+    return values;
+};
+
 module.exports = {
     User
 };
