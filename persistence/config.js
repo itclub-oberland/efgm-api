@@ -2,6 +2,10 @@ let User = require("./model/user.model").User;
 let Person = require("./model/person.model").Person;
 let Address = require("./model/address.model").Adress;
 let Role = require("./model/role.model").Role;
+let Log = require("./model/log.model").Log;
+let Skill = require("./model/skill.model").Skill;
+let Profile = require("./model/profile.model").Profile;
+let Resource = require("./model/resource.model").Resource;
 
 let {sequelize, Sequelize} = require("./connection");
 
@@ -26,9 +30,18 @@ module.exports = {
     init() {
         //Define relationships between data models
         User.Person = User.hasOne(Person);
-        Role.belongsToMany(User, {through: "UserRole"});
+        User.Logs = User.hasMany(Log, {as: "History"});
+        User.Profile = User.hasOne(Profile);
         User.Roles = User.belongsToMany(Role, {through: "UserRole"});
+
+        Role.belongsToMany(User, {through: "UserRole"});
+
         Person.Addressses = Person.hasMany(Address);
+
+        Profile.Skills = Profile.hasMany(Skill);
+        Profile.Resources = Profile.belongsToMany(Resource, {through: "ProfileResource"});
+
+        Resource.belongsToMany(Profile, {through: "ProfileResource"});
 
         // create all the defined tables in the specified database
         sequelize.sync()
@@ -42,7 +55,11 @@ module.exports = {
         User,
         Person,
         Address,
-        Role
+        Role,
+        Log,
+        Skill,
+        Profile,
+        Resource
     },
     operators:
         {

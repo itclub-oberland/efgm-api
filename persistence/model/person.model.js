@@ -9,12 +9,6 @@ const Person = sequelize.define('person', {
     },
     birthdate: {
         type: Sequelize.DATE
-    },
-    createdAt: {
-        type: Sequelize.DATE
-    },
-    updatedAt: {
-        type: Sequelize.DATE
     }
 });
 

@@ -13,6 +13,13 @@ const User = sequelize.define('user', {
         password: {
             type: Sequelize.STRING
         },
+        status: {
+            type: Sequelize.ENUM,
+            values: ["ACTIVE", "PASSIVE", "INITIAL"]
+        },
+        activeSince: {
+            type: Sequelize.DATE
+        },
         createdAt: {
             type: Sequelize.DATE
         },
@@ -39,6 +46,7 @@ User.prototype.toJSON = function () {
     delete values.id;
     delete values.createdAt;
     delete values.updatedAt;
+    delete values.activeSince;
     return values;
 };
 
