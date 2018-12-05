@@ -60,7 +60,29 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGFjaW1zIiwiaWF0IjoxNTQzOTY5OTg2LCJleHAiOjE1NDQwNTYzODZ9.qFiPJvjYgNQrIlIn2TGVdDq7NyTFMKxiIlNAGVXD5bc"
+                }
+              }
+            }
+          },
+          "401": {
+            "schema": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
       }
     },
     "/auth/signup": {

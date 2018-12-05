@@ -5,8 +5,8 @@ const userService = require("../service/user.service");
 authRouter.define()
     .path("/login")
     .post(async function (req, res) {
-        await userService.findUser(req.body.username, req.body.password).then(user => {
-            if (user !== null) {
+        await userService.getUserByUsername(req.body.username).then(async (user) => {
+            if (user !== null && await user.validPassword(req.body.password)) {
                 const payload = {
                     user: user.username
                 };

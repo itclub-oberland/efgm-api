@@ -1,28 +1,36 @@
-const {Sequelize, sequelize, Op} = require("../connection");
+const bcrypt = require("bcrypt");
+const {Sequelize, sequelize} = require("../connection");
+
+async function encryptPassword(user) {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+}
 
 const User = sequelize.define('user', {
-    username: {
-        type: Sequelize.STRING
+        username: {
+            type: Sequelize.STRING
+        },
+        password: {
+            type: Sequelize.STRING
+        },
+        createdAt: {
+            type: Sequelize.DATE
+        },
+        updatedAt: {
+            type: Sequelize.DATE
+        }
     },
-    password: {
-        type: Sequelize.STRING
-    },
-    /**
-     * TODO: Needs to be roles, array
-     * TOD: Adjust routes/services as well
-     * */
-    role: {
-        type: Sequelize.STRING
-    },
-    createdAt: {
-        type: Sequelize.DATE
-    },
-    updatedAt: {
-        type: Sequelize.DATE
-    }
-});
+    {
+        hooks: {
+            beforeCreate: encryptPassword,
+            beforeUpdate: encryptPassword
+        }
+    });
+
+User.prototype.validPassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+};
 
 module.exports = {
-    User,
-    Op
+    User
 };

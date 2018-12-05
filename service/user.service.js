@@ -2,6 +2,8 @@ const persistenceConfig = require("../persistence/config");
 const {User, Person} = persistenceConfig.models;
 const Op = persistenceConfig.operators.Op;
 
+const roleService = require("./role.service");
+
 async function getUserByUsername(username) {
     return User.findOne({where: {username: {[Op.eq]: username}}}).then(user => {
         return user;
@@ -11,47 +13,21 @@ async function getUserByUsername(username) {
     });
 }
 
-async function findUserByUsernameAndPassword(username, password) {
-    return User.findOne({
-        where: {
-            username: {
-                [Op.eq]: username
-            }
-        }
-    }).then(user => {
-        if (user && user.dataValues.password === password) {
-            return user.dataValues;
-        }
-        throw {message: "User not found!"};
-    }).catch((err) => {
-        console.log("Uh oh:", err);
-        return null;
-    });
-}
-
 async function createUser(username, password) {
+    let newUser = null;
     return User.create({
         username,
-        password,
-        role: "ROLE_USER",
-        person: {
-            firstname: "Hans",
-            lastname: "Muster",
-            birthdate: Date.now(),
-            addresses: [{}]
-        }
-    }, {
-        include: [
-            {
-                association: User.Person,
-                include: [
-                    {
-                        association: Person.Addressses
-                    }
-                ]
-            }]
+        password
     }).then((user) => {
-        return user;
+        newUser = user;
+        return roleService.findRoleByName("ROLE_USER");
+    }).then((role) => {
+        return newUser.setRoles([role]);
+    }).then(() => {
+        return newUser;
+    }).catch((ex) => {
+        console.log("Uh oh:", ex);
+        return null;
     });
 }
 
@@ -99,10 +75,9 @@ async function all() {
 }
 
 module.exports = {
-    findUser: findUserByUsernameAndPassword,
     createUser,
     all,
-    getUser: getUserByUsername,
-    removeUserById: removeUserById,
-    updateUserById: updateUserById
+    getUserByUsername,
+    removeUserById,
+    updateUserById
 };

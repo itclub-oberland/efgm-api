@@ -1,4 +1,4 @@
-const {Sequelize, sequelize, Op} = require("../connection");
+const {Sequelize, sequelize} = require("../connection");
 
 const Adress = sequelize.define('address', {
     city: {
@@ -20,6 +20,5 @@ const Adress = sequelize.define('address', {
 });
 
 module.exports = {
-    Adress,
-    Op
+    Adress
 };

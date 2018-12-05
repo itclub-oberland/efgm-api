@@ -9,6 +9,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^6.1.0",
@@ -30,8 +31,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
-    "mocha": "^2.4.5",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0",
     "request": "latest"
   }
 }

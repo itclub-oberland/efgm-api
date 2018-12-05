@@ -1,4 +1,4 @@
-const {Sequelize, sequelize, Op} = require("../connection");
+const {Sequelize, sequelize} = require("../connection");
 
 const Person = sequelize.define('person', {
     firstname: {
@@ -19,6 +19,5 @@ const Person = sequelize.define('person', {
 });
 
 module.exports = {
-    Person,
-    Op
+    Person
 };

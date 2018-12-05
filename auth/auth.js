@@ -9,7 +9,7 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.SECRET;
 
 passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {
-    let user = await userService.getUser(jwt_payload.user);
+    let user = await userService.getUserByUsername(jwt_payload.user);
     if (user) {
         done(null, user);
     } else {
