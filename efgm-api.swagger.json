@@ -7,7 +7,18 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "text/html"
+        ],
+        "responses": {
+          "302": {
+            "schema": {
+              "type": "string",
+              "example": "<p>Found. Redirecting to <a href=\"/api-docs\">/api-docs</a></p>"
+            }
+          }
+        }
       }
     },
     "/api/users": {
@@ -38,10 +49,7 @@
             "in": "path",
             "required": true
           }
-        ],
-        "responses": {
-          "304": {}
-        }
+        ]
       },
       "delete": {
         "summary": "/api/users/{id}",

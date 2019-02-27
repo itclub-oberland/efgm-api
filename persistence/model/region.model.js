@@ -1,11 +1,11 @@
 const {Sequelize, sequelize} = require("../connection");
 
-const Profile = sequelize.define('profile', {
-    profession: {
+const Region = sequelize.define('region', {
+    name: {
         type: Sequelize.STRING
-    }
+    },
 });
 
 module.exports = {
-    Profile
+    Region
 };
