@@ -7,6 +7,10 @@ let Skill = require("./model/skill.model").Skill;
 let Resource = require("./model/resource.model").Resource;
 let Offer = require("./model/offer.model").Offer;
 let Region = require("./model/region.model").Region;
+let Dossier = require("./model/dossier.model").Dossier;
+let Relation = require("./model/relation.model").Relation;
+let Activity = require("./model/activity.model").Activity;
+let Money = require("./model/money.model").Money;
 
 let {sequelize, Sequelize} = require("./connection");
 
@@ -31,9 +35,8 @@ module.exports = {
     init() {
         //Define relationships between data models
         User.Person = User.hasOne(Person);
-        User.Logs = User.hasMany(Log, {as: "History"});
+        User.Logs = User.hasMany(Log, {as: "history"});
         User.Roles = User.belongsToMany(Role, {through: "user_role"});
-        User.Offers = User.belongsToMany(Offer, {through: "user_offer"});
 
         Offer.Resources = Resource.belongsToMany(Offer, {through: "offer_resource"});
         Offer.Location = Address.belongsToMany(Offer, {through: "offer_location"});
@@ -41,9 +44,22 @@ module.exports = {
         Role.belongsToMany(User, {through: "user_role"});
 
         Person.Addressses = Person.belongsToMany(Address, {through: "person_address"});
+        Person.Regions = Person.belongsToMany(Region, {through: "person_region"});
+        Person.Dossiers = Person.belongsToMany(Dossier, {through: "person_dossier"});
+        Person.Skills = Person.hasMany(Skill);
+        Person.Relations = Person.belongsToMany(Relation, {through: "person_relation"});
+        Person.Offers = Person.belongsToMany(Offer, {through: "person_offer"});
+        Person.Activities = Person.belongsToMany(Activity, {through: "activity_person"});
 
-        Person.Regions = Person.belongsToMany(Region, {through:"person_region"});
+        Relation.Person = Relation.hasOne(Person, {through: "person_relation"});
+
         Region.Persons = Region.belongsToMany(Person, {through: "person_region"});
+
+        Dossier.Persons = Dossier.belongsToMany(Person, {through: "person_dossier"});
+
+        Activity.Persons = Activity.belongsToMany(Person, {through: "activity_person"});
+        Activity.Location = Activity.belongsToMany(Address, {through: "activity_location"});
+        Activity.Budget = Activity.belongsToMany(Money, {through: "budget_money"});
 
         // create all the defined tables in the specified database
         sequelize.sync()
@@ -62,7 +78,11 @@ module.exports = {
         Skill,
         Resource,
         Offer,
-        Region
+        Region,
+        Relation,
+        Dossier,
+        Activity,
+        Money
     },
     operators:
         {

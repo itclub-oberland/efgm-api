@@ -1,21 +1,24 @@
 const {Sequelize, sequelize} = require("../connection");
 
 const Adress = sequelize.define('address', {
-    city: {
-        type: Sequelize.STRING
-    }
-    ,
+    type: {
+        type: Sequelize.ENUM,
+        values: ["HOME", "BILL", "BUSINESS", "SHIPPING", "ACTIVITY"]
+    },
     street: {
         type: Sequelize.STRING
     },
-    plz: {
+    zip: {
         type: Sequelize.STRING
     },
-    createdAt: {
-        type: Sequelize.DATE
+    city: {
+        type: Sequelize.STRING
     },
-    updatedAt: {
-        type: Sequelize.DATE
+    state: {
+        type: Sequelize.STRING
+    },
+    country: {
+        type: Sequelize.STRING
     }
 });
 

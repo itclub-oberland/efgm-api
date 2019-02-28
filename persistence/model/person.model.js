@@ -1,6 +1,9 @@
 const {Sequelize, sequelize} = require("../connection");
 
 const Person = sequelize.define('person', {
+    email: {
+        type: Sequelize.STRING
+    },
     firstname: {
         type: Sequelize.STRING
     },
@@ -9,6 +12,10 @@ const Person = sequelize.define('person', {
     },
     birthdate: {
         type: Sequelize.DATE
+    },
+    gender: {
+        type: Sequelize.ENUM,
+        values: ["FEMALE", "MALE", "OTHER"]
     }
 });
 

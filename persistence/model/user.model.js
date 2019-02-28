@@ -19,12 +19,6 @@ const User = sequelize.define('user', {
         },
         activeSince: {
             type: Sequelize.DATE
-        },
-        createdAt: {
-            type: Sequelize.DATE
-        },
-        updatedAt: {
-            type: Sequelize.DATE
         }
     },
     {
