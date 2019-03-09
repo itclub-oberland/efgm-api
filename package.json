@@ -5,8 +5,8 @@
   "main": "www",
   "author": "Zafer Dogan",
   "scripts": {
-    "start": "node ./scripts/start",
-    "test": "mocha"
+    "test": "mocha --recursive",
+    "start": "node ./scripts/start"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
