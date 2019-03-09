@@ -11,6 +11,9 @@ async function createPerson(firstname, lastname, email, birthdate, gender) {
         gender
     }).then((newPerson) => {
         return newPerson;
+    }).catch(err => {
+        console.log("Uh oh:", err);
+        return null;
     });
 }
 

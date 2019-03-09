@@ -1,5 +1,6 @@
 const authRouter = require("../auth/authrouter")(require("express").Router());
 const jwt = require("jsonwebtoken");
+let HttpStatus = require('http-status-codes');
 const userService = require("../../service/user.service");
 
 authRouter.define()
@@ -14,9 +15,9 @@ authRouter.define()
                     expiresIn: 86400  // expires in 24 hours
                 });
 
-                res.status(200).json({token});
+                res.status(HttpStatus.OK).json({token});
             } else {
-                res.status(401).json();
+                res.status(HttpStatus.UNAUTHORIZED).json();
             }
         });
     });
@@ -32,9 +33,9 @@ authRouter.define()
                 let token = jwt.sign(payload, process.env.SECRET, {
                     expiresIn: 86400  // expires in 24 hours
                 });
-                res.status(200).json({token});
+                res.status(HttpStatus.OK).json({token});
             } else {
-                res.status(401).json();
+                res.status(HttpStatus.UNAUTHORIZED).json();
             }
         });
     });
