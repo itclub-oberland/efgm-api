@@ -1,4 +1,4 @@
-const persistenceConfig = require("../persistence/config");
+const persistenceConfig = require("./domain/config");
 const {Role} = persistenceConfig.models;
 const Op = persistenceConfig.operators.Op;
 

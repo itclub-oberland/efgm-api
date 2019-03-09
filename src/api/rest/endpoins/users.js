@@ -1,6 +1,6 @@
 let authRouter = require("../auth/authrouter")(require("express").Router());
-const logger = require("../util/logger");
-let userService = require("../service/user.service");
+const logger = require("../../util/logger");
+let userService = require("../../service/user.service");
 
 authRouter.define()
     .path("/users")

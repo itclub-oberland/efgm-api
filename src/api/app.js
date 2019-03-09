@@ -6,11 +6,11 @@ let logger = require('morgan');
 let sassMiddleware = require('node-sass-middleware');
 const expressOasGenerator = require('express-oas-generator');
 
-require("./persistence/config").init();
+require("./service/domain/config").init();
 
-let indexRouter = require('./routes/index.route');
-let usersRouter = require('./routes/users.route');
-let authRouter = require('./routes/auth.route');
+let indexRouter = require('./rest/endpoins/api-docs');
+let usersRouter = require('./rest/endpoins/users');
+let authRouter = require('./rest/endpoins/authentication');
 
 let app = express();
 
