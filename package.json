@@ -5,7 +5,7 @@
   "main": "www",
   "author": "Zafer Dogan",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./scripts/start",
     "test": "mocha"
   },
   "dependencies": {

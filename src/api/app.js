@@ -21,12 +21,12 @@ expressOasGenerator.init(app,
     function (spec) {
         return spec;
     },
-    'efgm-api.swagger.json',
+    'src/resource/efgm-api.swagger.json',
     60 * 1000);
 
 //Setup logger
 // create a write stream (in append mode)
-let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+let accessLogStream = fs.createWriteStream(path.join(__dirname, '../resource/log/access.log'), {flags: 'a'});
 app.use(logger('combined', {stream: accessLogStream}));
 app.use(logger('dev'));
 
@@ -34,12 +34,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(sassMiddleware({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
+    src: path.join(__dirname, '../resource/static'),
+    dest: path.join(__dirname, '../resource/static'),
     indentedSyntax: true, // true = .sass and false = .scss
     sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../resource/static')));
 
 app.use('/', indexRouter);
 app.use('/api', usersRouter);

@@ -1,4 +1,4 @@
-#!/usr/script/env node
+#!/usr/scripts/env node
 
 /**
  * Module dependencies.
