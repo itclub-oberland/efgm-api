@@ -1,7 +1,7 @@
 module.exports = function(router){
 
-    const authenticate = require("../auth/auth");
-    const authorizeWithRole = require("../auth/authorization");
+    const authenticate = require("./auth");
+    const authorizeWithRole = require("./authorization");
 
 
     function defineRoute(method, path, callback) {
