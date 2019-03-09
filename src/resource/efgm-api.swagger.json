@@ -73,7 +73,59 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "birthdate": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "null"
+                  },
+                  "relationId": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "id",
+                  "email",
+                  "firstname",
+                  "lastname",
+                  "birthdate",
+                  "gender",
+                  "userId",
+                  "relationId"
+                ]
+              }
+            }
+          }
+        }
       },
       "post": {
         "summary": "/api/persons",
@@ -87,8 +139,29 @@
         "responses": {
           "200": {
             "schema": {
-              "type": "integer",
-              "example": 0
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 11
+                },
+                "lastname": {
+                  "type": "string",
+                  "example": "Dogan"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "zaferdo@gmail.com"
+                },
+                "birthdate": {
+                  "type": "string",
+                  "example": "1989-05-06T22:00:00.000Z"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "MALE"
+                }
+              }
             }
           }
         }
@@ -111,6 +184,45 @@
           "application/json"
         ],
         "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 12
+                },
+                "email": {
+                  "type": "string",
+                  "example": "zaferdo@gmail.com"
+                },
+                "firstname": {
+                  "type": "string",
+                  "example": "Dafer"
+                },
+                "lastname": {
+                  "type": "string",
+                  "example": "Dogan"
+                },
+                "birthdate": {
+                  "type": "string",
+                  "example": "1989-05-06T22:00:00.000Z"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "MALE"
+                },
+                "userId": {
+                  "type": "null",
+                  "example": null
+                },
+                "relationId": {
+                  "type": "null",
+                  "example": null
+                }
+              }
+            }
+          },
           "404": {
             "schema": {
               "type": "object",
@@ -140,7 +252,7 @@
           "application/json"
         ],
         "responses": {
-          "404": {
+          "200": {
             "schema": {
               "type": "integer",
               "example": 0
@@ -159,7 +271,10 @@
             "in": "path",
             "required": true
           }
-        ]
+        ],
+        "responses": {
+          "204": {}
+        }
       }
     },
     "/auth/login": {

@@ -1,4 +1,4 @@
-module.exports = function(router){
+module.exports = function (router) {
 
     const authenticate = require("./auth");
     const authorizeWithRole = require("./authorization");

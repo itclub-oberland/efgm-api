@@ -1,78 +1,93 @@
-let authRouter = require("../auth/authrouter")(require("express").Router());
-const logger = require("../../util/logger");
-let HttpStatus = require('http-status-codes');
+const AUTH_ROUTER = require("../auth/authrouter")(require("express").Router());
+const LOGGER = require("../../util/logger");
+const HTTP_STATUS = require('http-status-codes');
 
-let userService = require("../../service/user.service");
+const USER_SERVICE = require("../../service/user.service");
 
-authRouter.define()
+AUTH_ROUTER.define()
     .path("/users")
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .get(async function (req, res) {
-        await userService.findAll()
+        await USER_SERVICE.findAll()
             .then(users => {
-                res.status(HttpStatus.OK).json(users);
+                if (users) {
+                    return res.status(HTTP_STATUS.OK).json(users);
+                } else {
+                    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't get Users! An error occurred."});
+                }
             })
             .catch((err) => {
-                console.log("Uh oh: ", err.message);
-                res.status(HttpStatus.BAD_REQUEST).json();
+                LOGGER.error("Getting users failed:", err);
+                return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't get User! An error occurred."});
             });
     })
     .and()
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .post(async function (req, res) {
-        await userService.createUser(req.body.username, req.body.password)
+        await USER_SERVICE.createUser(req.body.username, req.body.password)
             .then(user => {
-                res.status(HttpStatus.OK).json(user);
+                if (user) {
+                    return res.status(HTTP_STATUS.OK).json(user);
+                } else {
+                    return res.status(HTTP_STATUS.BAD_REQUEST).json();
+                }
             }).catch(err => {
-                console.log("Uh oh:", err.message);
-                res.status(HttpStatus.BAD_REQUEST).json();
+                LOGGER.error("Creating user failed:", err);
+                return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't create User! An error occurred."});
             });
     });
 
 
-authRouter.define()
+AUTH_ROUTER.define()
     .path("/users/:id")
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .get(async function (req, res) {
-        await userService.getUserById(req.params.id).then((user) => {
-            if (user) {
-                res.status(HttpStatus.OK).json(user);
-            } else {
-                res.status(HttpStatus.NOT_FOUND).json({message: "User not found"})
-            }
-        });
+        await USER_SERVICE.getUserById(req.params.id)
+            .then((user) => {
+                if (user) {
+                    return res.status(HTTP_STATUS.OK).json(user);
+                } else {
+                    return res.status(HTTP_STATUS.NOT_FOUND).json({message: "User not found"})
+                }
+            }).catch(err => {
+                return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't get User! An error occurred."});
+            });
     })
     .and()
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .delete(async function (req, res) {
-        await userService.removeUserById(req.params.id)
+        await USER_SERVICE.removeUserById(req.params.id)
             .then(operationStatus => {
                 if (operationStatus) {
-                    return res.status(HttpStatus.OK);
+                    return res.status(HTTP_STATUS.OK);
                 } else {
-                    return res.status(HttpStatus.NOT_FOUND);
+                    return res.status(HTTP_STATUS.NOT_FOUND);
                 }
             }).catch((err) => {
-                return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: "Couldn't delete User! An error occurred."});
-            })
+                return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't delete User! An error occurred."});
+            });
     })
     .and()
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .put(async function (req, res) {
         let userObj = {username: req.body.username, password: req.body.password, role: req.body.role};
-        await userService.updateUserById(req.params.id, userObj)
+        await USER_SERVICE.updateUserById(req.params.id, userObj)
             .then((updatedUser) => {
-                return res.status(HttpStatus.OK).json(updatedUser);
+                if (updatedUser) {
+                    return res.status(HTTP_STATUS.OK).json(updatedUser);
+                } else {
+                    return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't update User! An error occurred."});
+                }
             })
             .catch((err) => {
-                logger.error("Updating user failed:", err);
-                return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: "Couldn't update User! An error occured."});
+                LOGGER.error("Updating user failed:", err);
+                return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Couldn't update User! An error occured."});
             });
     });
 
-module.exports = authRouter.getRouter();
+module.exports = AUTH_ROUTER.getRouter();
