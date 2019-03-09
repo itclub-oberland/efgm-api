@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+#!/usr/scripts/env node
 
 /**
  * Module dependencies.
  */
 require('dotenv').config();
-let app = require('../app');
+let app = require('../src/api/app');
 let debug = require('debug')('efgm-api:server');
 let http = require('http');
 
