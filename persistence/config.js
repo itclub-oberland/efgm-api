@@ -14,6 +14,7 @@ let Money = require("./model/money.model").Money;
 let Condition = require("./model/condition.model").Condition;
 let Shipping = require("./model/shipping.model").Shipping;
 let Demand = require("./model/demand.model").Demand;
+let Transaction = require("./model/transaction.model").Transaction;
 
 let {sequelize, Sequelize} = require("./connection");
 
@@ -72,6 +73,11 @@ module.exports = {
 
         Condition.Price = Condition.belongsToMany(Money, {through: "condition_money"});
 
+        Transaction.Seller = Transaction.belongsTo(Person, {as:"seller"});
+        Transaction.Buyer = Transaction.belongsTo(Person, {as:"buyer"});
+        Transaction.Offer = Transaction.belongsTo(Offer);
+        Transaction.Demand = Transaction.belongsTo(Demand);
+
         // create all the defined tables in the specified database
         sequelize.sync()
             .then(() => {
@@ -96,7 +102,8 @@ module.exports = {
         Money,
         Condition,
         Shipping,
-        Demand
+        Demand,
+        Transaction
     },
     operators:
         {
