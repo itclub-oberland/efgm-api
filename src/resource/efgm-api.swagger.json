@@ -16,7 +16,32 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "username",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
       },
       "post": {
         "summary": "/api/users",
@@ -82,7 +107,23 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiWmFmZXIiLCJpYXQiOjE1NTIxMzE4MjIsImV4cCI6MTU1MjIxODIyMn0.2OiBAi7AR1zGp6M7_R0PCIpsh3sEpPr9d_Pjhj0DMM0"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
