@@ -7,7 +7,7 @@ authRouter.define()
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .get(async function (req, res) {
-        await userService.all()
+        await userService.findAll()
             .then(users => {
                 return res.status(200).json(users);
             })

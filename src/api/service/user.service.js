@@ -84,7 +84,7 @@ async function removeUserById(userId) {
     });
 }
 
-async function all() {
+async function findAll() {
     return User.findAll().then(users => {
         return users;
     });
@@ -92,7 +92,7 @@ async function all() {
 
 module.exports = {
     createUser,
-    all,
+    findAll,
     getUserByUsername,
     getUserById,
     removeUserById,

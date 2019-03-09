@@ -7,18 +7,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "text/html"
-        ],
-        "responses": {
-          "302": {
-            "schema": {
-              "type": "string",
-              "example": "<p>Found. Redirecting to <a href=\"/api-docs\">/api-docs</a></p>"
-            }
-          }
-        }
+        "parameters": []
       }
     },
     "/api/users": {
@@ -27,32 +16,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "null"
-                  }
-                },
-                "required": [
-                  "username",
-                  "status"
-                ]
-              }
-            }
-          }
-        }
+        "parameters": []
       },
       "post": {
         "summary": "/api/users",
@@ -91,6 +55,101 @@
       },
       "put": {
         "summary": "/api/users/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/persons": {
+      "get": {
+        "summary": "/api/persons",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "summary": "/api/persons",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
+      }
+    },
+    "/api/persons/{id}": {
+      "get": {
+        "summary": "/api/persons/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Person not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "/api/persons/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "404": {
+            "schema": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "/api/persons/{id}",
         "consumes": [
           "application/json"
         ],

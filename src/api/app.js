@@ -10,6 +10,7 @@ require("./service/domain/config").init();
 
 let indexRouter = require('./rest/endpoins/api-docs');
 let usersRouter = require('./rest/endpoins/users');
+let personRouter = require('./rest/endpoins/persons');
 let authRouter = require('./rest/endpoins/authentication');
 
 let app = express();
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, '../resource/static')));
 
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
+app.use('/api', personRouter);
 app.use('/auth', authRouter);
 
 // error handler
