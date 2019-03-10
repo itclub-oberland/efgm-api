@@ -25,7 +25,8 @@ function initRoles() {
                 {name: "ROLE_USER"},
                 {name: "ROLE_ADMIN"},
                 {name: "ROLE_GM"},
-                {name: "ROLE_LV"}
+                {name: "ROLE_LV"},
+                {name: "ROLE_VOLUNTEER"}
             ]).then(() => {
                 return Role.findAll();
             }).then(roles => roles);
@@ -73,8 +74,8 @@ module.exports = {
 
         Condition.Price = Condition.belongsToMany(Money, {through: "condition_money"});
 
-        Transaction.Seller = Transaction.belongsTo(Person, {as:"seller"});
-        Transaction.Buyer = Transaction.belongsTo(Person, {as:"buyer"});
+        Transaction.Seller = Transaction.belongsTo(Person, {as: "seller"});
+        Transaction.Buyer = Transaction.belongsTo(Person, {as: "buyer"});
         Transaction.Offer = Transaction.belongsTo(Offer);
         Transaction.Demand = Transaction.belongsTo(Demand);
 

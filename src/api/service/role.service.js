@@ -3,19 +3,14 @@ const {Role} = persistenceConfig.models;
 const Op = persistenceConfig.operators.Op;
 
 async function findRoleByName(roleName) {
-    return Role.findOne({where: {name: {[Op.eq]: roleName}}}).then(role => {
-        return role;
-    }).catch((err) => {
-        console.log("Uh oh:", err);
-        return null;
-    });
+    return await Role.findOne({where: {name: {[Op.eq]: roleName}}});
 }
 
-async function all() {
-    return Role.findAll().then(roles => roles);
+async function findAll() {
+    return await Role.findAll();
 }
 
 module.exports = {
     findRoleByName,
-    all
+    findAll
 };

@@ -1,43 +1,53 @@
-const authRouter = require("../auth/authrouter")(require("express").Router());
-const jwt = require("jsonwebtoken");
-let HttpStatus = require('http-status-codes');
+const AUTH_ROUTER = require("../auth/authrouter")(require("express").Router());
+const JWT = require("jsonwebtoken");
+const HTTP_STATUS = require('http-status-codes');
+const LOGGER = require("../../util/logger");
+const {wrapInFallbackResponse} = require("../util/router.helper");
+
 const userService = require("../../service/user.service");
 
-authRouter.define()
+AUTH_ROUTER.define()
     .path("/login")
     .post(async function (req, res) {
-        await userService.getUserByUsername(req.body.username).then(async (user) => {
-            if (user !== null && await user.validPassword(req.body.password)) {
+        await wrapInFallbackResponse(req, res, async () => {
+            let {username, password} = req.body;
+            let user = await userService.getUserByUsername(username);
+            if (user !== null && await user.validPassword(password)) {
                 const payload = {
                     user: user.username
                 };
-                let token = jwt.sign(payload, process.env.SECRET, {
+                let token = JWT.sign(payload, process.env.SECRET, {
                     expiresIn: 86400  // expires in 24 hours
                 });
-
-                res.status(HttpStatus.OK).json({token});
+                LOGGER.info("User logged in successfully.", user);
+                res.status(HTTP_STATUS.OK).json({token});
             } else {
-                res.status(HttpStatus.UNAUTHORIZED).json();
+                LOGGER.warn("Unauthorized login attempt detected.", {username, password});
+                res.status(HTTP_STATUS.UNAUTHORIZED).json();
             }
         });
     });
 
-authRouter.define()
+AUTH_ROUTER.define()
     .path("/signup")
     .post(async function (req, res) {
-        await userService.createUser(req.body.username, req.body.password).then(user => {
+        await wrapInFallbackResponse(req, res, async () => {
+            let {username, password} = req.body;
+            let user = await userService.createUser(username, password);
             if (user !== null) {
                 const payload = {
                     user: user.username
                 };
-                let token = jwt.sign(payload, process.env.SECRET, {
+                let token = JWT.sign(payload, process.env.SECRET, {
                     expiresIn: 86400  // expires in 24 hours
                 });
-                res.status(HttpStatus.OK).json({token});
+                LOGGER.info("User signed up successfully.", user);
+                res.status(HTTP_STATUS.OK).json({token});
             } else {
-                res.status(HttpStatus.UNAUTHORIZED).json();
+                LOGGER.warn("Bad signup detected.", {username, password});
+                res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Something went wrong while signing up!"});
             }
         });
     });
 
-module.exports = authRouter.getRouter();
+module.exports = AUTH_ROUTER.getRouter();

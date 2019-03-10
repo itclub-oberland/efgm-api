@@ -73,98 +73,14 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "firstname": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "lastname": {
-                    "type": "string"
-                  },
-                  "birthdate": {
-                    "type": "string"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "userId": {
-                    "type": "null"
-                  },
-                  "relationId": {
-                    "type": "null"
-                  }
-                },
-                "required": [
-                  "id",
-                  "email",
-                  "firstname",
-                  "lastname",
-                  "birthdate",
-                  "gender",
-                  "userId",
-                  "relationId"
-                ]
-              }
-            }
-          }
-        }
+        "parameters": []
       },
       "post": {
         "summary": "/api/persons",
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 11
-                },
-                "lastname": {
-                  "type": "string",
-                  "example": "Dogan"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "zaferdo@gmail.com"
-                },
-                "birthdate": {
-                  "type": "string",
-                  "example": "1989-05-06T22:00:00.000Z"
-                },
-                "gender": {
-                  "type": "string",
-                  "example": "MALE"
-                }
-              }
-            }
-          }
-        }
+        "parameters": []
       }
     },
     "/api/persons/{id}": {
@@ -179,62 +95,7 @@
             "in": "path",
             "required": true
           }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 12
-                },
-                "email": {
-                  "type": "string",
-                  "example": "zaferdo@gmail.com"
-                },
-                "firstname": {
-                  "type": "string",
-                  "example": "Dafer"
-                },
-                "lastname": {
-                  "type": "string",
-                  "example": "Dogan"
-                },
-                "birthdate": {
-                  "type": "string",
-                  "example": "1989-05-06T22:00:00.000Z"
-                },
-                "gender": {
-                  "type": "string",
-                  "example": "MALE"
-                },
-                "userId": {
-                  "type": "null",
-                  "example": null
-                },
-                "relationId": {
-                  "type": "null",
-                  "example": null
-                }
-              }
-            }
-          },
-          "404": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Person not found"
-                }
-              }
-            }
-          }
-        }
+        ]
       },
       "delete": {
         "summary": "/api/persons/{id}",
@@ -247,18 +108,7 @@
             "in": "path",
             "required": true
           }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "integer",
-              "example": 0
-            }
-          }
-        }
+        ]
       },
       "put": {
         "summary": "/api/persons/{id}",
@@ -271,10 +121,7 @@
             "in": "path",
             "required": true
           }
-        ],
-        "responses": {
-          "204": {}
-        }
+        ]
       }
     },
     "/auth/login": {
@@ -292,7 +139,23 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Something went wrong! Sorry!"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
