@@ -1,19 +1,25 @@
-module.exports = function (router) {
-
+function buildAuthRouter() {
+    const router = require("express").Router();
     const authenticate = require("./auth");
     const authorizeWithRole = require("./authorization");
 
+    function asyncMiddleware(callback) {
+        return (req, res, next) => {
+            Promise.resolve(callback(req, res, next))
+                .catch(next);
+        };
+    }
 
     function defineRoute(method, path, callback) {
-        router[method.toLowerCase()](path, callback);
+        router[method.toLowerCase()](path, asyncMiddleware(callback));
     }
 
     function defineAuthRoute(method, path, callback) {
-        router[method.toLowerCase()](path, authenticate, callback);
+        router[method.toLowerCase()](path, authenticate, asyncMiddleware(callback));
     }
 
     function defineAuthRouteWithRoles(method, path, roles, callback) {
-        router[method.toLowerCase()](path, authenticate, authorizeWithRole(roles), callback);
+        router[method.toLowerCase()](path, authenticate, authorizeWithRole(roles), asyncMiddleware(callback));
     }
 
     function AuthRouter() {
@@ -94,4 +100,8 @@ module.exports = function (router) {
     }
 
     return new AuthRouter();
+}
+
+module.exports = {
+    build: buildAuthRouter
 };

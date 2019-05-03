@@ -5,12 +5,15 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let sassMiddleware = require('node-sass-middleware');
 const expressOasGenerator = require('express-oas-generator');
+const HTTP_STATUS = require('http-status-codes');
 
+const LOGGER = require("./util/logger");
 require("./service/domain/config").init();
 
 let indexRouter = require('./rest/endpoins/api-docs');
 let usersRouter = require('./rest/endpoins/users');
-let personRouter = require('./rest/endpoins/persons');
+let peopleRouter = require('./rest/endpoins/persons');
+let offersRouter = require('./rest/endpoins/offers');
 let authRouter = require('./rest/endpoins/authentication');
 
 let app = express();
@@ -28,7 +31,7 @@ expressOasGenerator.init(app,
 //Setup logger
 // create a write stream (in append mode)
 
-if(!fs.existsSync(path.join(__dirname, '../resource/log'))){
+if (!fs.existsSync(path.join(__dirname, '../resource/log'))) {
     fs.mkdirSync(path.join(__dirname, '../resource/log'));
 }
 
@@ -49,7 +52,8 @@ app.use(express.static(path.join(__dirname, '../resource/static')));
 
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
-app.use('/api', personRouter);
+app.use('/api', peopleRouter);
+app.use('/api', offersRouter);
 app.use('/auth', authRouter);
 
 // error handler
@@ -58,9 +62,9 @@ app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Something went wrong! Sorry!"});
+    LOGGER.error("Server error: ", {exception: err, request: req.url});
 });
 
 module.exports = app;

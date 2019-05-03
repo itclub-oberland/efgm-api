@@ -8,7 +8,8 @@ async function getUserByUsername(username) {
     return await User.findOne({where: {username: {[Op.eq]: username}}});
 }
 
-async function createUser(username, password) {
+async function createUser(userDto) {
+    let {username, password} = userDto;
     let newUser = await User.create({
         username,
         password

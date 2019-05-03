@@ -2,7 +2,8 @@ const persistenceConfig = require("./domain/config");
 const {Person} = persistenceConfig.models;
 const Op = persistenceConfig.operators.Op;
 
-async function createPerson(firstname, lastname, email, birthdate, gender) {
+async function createPerson(personDto) {
+    let {firstname, lastname, email, birthdate, gender} = personDto;
     return await Person.create({
         firstname,
         lastname,

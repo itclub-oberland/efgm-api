@@ -2,52 +2,49 @@ const persistenceConfig = require("./domain/config");
 const {Offer} = persistenceConfig.models;
 const Op = persistenceConfig.operators.Op;
 
-async function createOffer(firstname, lastname, email, birthdate, gender) {
+async function createOffer(offerDto) {
+    let {type, title, description} = offerDto;
     return await Offer.create({
-        firstname,
-        lastname,
-        email,
-        birthdate,
-        gender
+        type,
+        title,
+        description
     });
 }
 
-async function updatePersonById(personId, updatedPerson) {
+async function updateOfferById(offerId, updatedOffer) {
     let retrievedPerson = await Offer.findOne(
         {
             where:
                 {
                     id:
-                        {[Op.eq]: personId}
+                        {[Op.eq]: offerId}
                 }
         });
     if (retrievedPerson) {
         return await retrievedPerson.update({
-            firstname: updatedPerson.firstname,
-            lastname: updatedPerson.lastname,
-            email: updatedPerson.email,
-            birthdate: updatedPerson.birthdate,
-            gender: updatedPerson.gender
+            type: updatedOffer.type,
+            title: updatedOffer.title,
+            description: updatedOffer.description
         });
     }
     return null;
 }
 
-async function getPersonById(personId) {
+async function getOfferById(offerId) {
     return await Offer.findOne({
         where:
             {
                 id:
-                    {[Op.eq]: personId}
+                    {[Op.eq]: offerId}
             }
     });
 }
 
-async function removePersonById(personId) {
+async function removeOfferById(offerId) {
     return Boolean(await Offer.destroy({
         where: {
             id: {
-                [Op.eq]: personId
+                [Op.eq]: offerId
             }
         }
     }));
@@ -58,9 +55,9 @@ async function findAll() {
 }
 
 module.exports = {
-    createPerson: createOffer,
-    updatePersonById,
-    getPersonById,
-    removePersonById,
+    createOffer,
+    updateOfferById,
+    getOfferById,
+    removeOfferById,
     findAll
 };
