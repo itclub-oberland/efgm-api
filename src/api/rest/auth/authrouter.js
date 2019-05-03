@@ -1,5 +1,5 @@
-function buildAuthRouter() {
-    const router = require("express").Router();
+function buildAuthRouter(options) {
+    const router = require("express").Router(options);
     const authenticate = require("./auth");
     const authorizeWithRole = require("./authorization");
 
@@ -103,5 +103,7 @@ function buildAuthRouter() {
 }
 
 module.exports = {
-    build: buildAuthRouter
+    build: function(options){
+        return buildAuthRouter(options);
+    }
 };

@@ -1,10 +1,10 @@
-const AUTH_ROUTER = require("../auth/authrouter").build();
-const LOGGER = require("../../util/logger");
-const HTTP_STATUS = require('http-status-codes');
-const PERSON_SERVICE = require("../../service/person.service");
+const AUTH_ROUTER = require("../../auth/authrouter").build({mergeParams:true});
+const LOGGER = require("../../../util/logger");
+const HTTP_STATUS = require('http-status-codes/index');
+const PERSON_SERVICE = require("../../../service/person.service");
 
 AUTH_ROUTER.define()
-    .path("/persons")
+    .path("/")
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .get(async function (req, res) {
@@ -30,7 +30,7 @@ AUTH_ROUTER.define()
 
 
 AUTH_ROUTER.define()
-    .path("/persons/:id")
+    .path("/:personId")
     // .needsAuthentication()
     // .withRoles(["ROLE_ADMIN"])
     .get(async function (req, res) {

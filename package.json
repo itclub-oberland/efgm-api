@@ -1,6 +1,6 @@
 {
   "name": "efgm-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "main": "www",
   "author": "Zafer Dogan",
@@ -13,18 +13,17 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^6.1.0",
-    "express": "~4.16.0",
+    "express": "^4.16.4",
     "express-oas-generator": "^1.0.1",
     "growl": ">=1.10.0",
     "http-errors": "~1.6.2",
     "http-status-codes": "^1.3.1",
     "jsonwebtoken": "latest",
+    "module-alias": "^2.2.0",
     "moment": "latest",
     "morgan": "~1.9.0",
-    "node-sass-middleware": "0.11.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pug": "^2.0.3",
     "sequelize": "^4.41.2",
     "sqlite3": "^4.0.4",
     "superagent": ">=3.7.0",
@@ -35,5 +34,9 @@
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
     "request": "latest"
+  },
+  "_moduleAliases": {
+    "@api": "./src/api",
+    "@service": "./src/api/service"
   }
 }

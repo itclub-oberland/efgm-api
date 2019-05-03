@@ -1,8 +1,8 @@
-const AUTH_ROUTER = require("../auth/authrouter").build();
+const AUTH_ROUTER = require("@api/rest/auth/authrouter").build();
 const JWT = require("jsonwebtoken");
-const HTTP_STATUS = require('http-status-codes');
-const LOGGER = require("../../util/logger");
-const USER_SERVICE = require("../../service/user.service");
+const HTTP_STATUS = require('http-status-codes/index');
+const LOGGER = require("@api/util/logger");
+const USER_SERVICE = require("@service/user.service");
 
 AUTH_ROUTER.define()
     .path("/login")

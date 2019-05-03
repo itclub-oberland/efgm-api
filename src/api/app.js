@@ -1,9 +1,10 @@
+//check package.json for alias paths (@somepath etc.)
+require('module-alias/register');
 let express = require('express');
 let path = require('path');
 let fs = require('fs');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-let sassMiddleware = require('node-sass-middleware');
 const expressOasGenerator = require('express-oas-generator');
 const HTTP_STATUS = require('http-status-codes');
 
@@ -11,9 +12,7 @@ const LOGGER = require("./util/logger");
 require("./service/domain/config").init();
 
 let indexRouter = require('./rest/endpoins/api-docs');
-let usersRouter = require('./rest/endpoins/users');
-let peopleRouter = require('./rest/endpoins/persons');
-let offersRouter = require('./rest/endpoins/offers');
+let apiRouter = require('./rest/endpoins/api');
 let authRouter = require('./rest/endpoins/authentication');
 
 let app = express();
@@ -42,18 +41,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(sassMiddleware({
-    src: path.join(__dirname, '../resource/static'),
-    dest: path.join(__dirname, '../resource/static'),
-    indentedSyntax: true, // true = .sass and false = .scss
-    sourceMap: true
-}));
 app.use(express.static(path.join(__dirname, '../resource/static')));
 
 app.use('/', indexRouter);
-app.use('/api', usersRouter);
-app.use('/api', peopleRouter);
-app.use('/api', offersRouter);
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
 // error handler

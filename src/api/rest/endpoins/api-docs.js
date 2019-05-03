@@ -1,4 +1,4 @@
-const AUTH_ROUTER = require("../auth/authrouter").build();
+const AUTH_ROUTER = require("@api/rest/auth/authrouter").build();
 
 /* GET home page. */
 AUTH_ROUTER.define()
