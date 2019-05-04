@@ -8,10 +8,28 @@ async function encryptPassword(user) {
 
 const User = sequelize.define('user', {
         username: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                len: {
+                    args: [3, 255],
+                    msg: "Username needs to be longer than 3 characters."
+                },
+                notEmpty: {
+                    msg: "Please enter a username"
+                }
+            }
         },
         password: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                    args: true,
+                    msg: "You need to set a password!"
+                }
+            }
         },
         status: {
             type: Sequelize.ENUM,

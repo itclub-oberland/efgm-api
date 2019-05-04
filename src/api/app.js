@@ -1,4 +1,4 @@
-//check package.json for alias paths (@somepath etc.)
+//Check package.json for alias paths (@somepath etc.)
 require('module-alias/register');
 let express = require('express');
 let path = require('path');
@@ -53,8 +53,8 @@ app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    res.status(err.status || 500);
-    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: "Something went wrong! Sorry!"});
+    res.status(err.status || HTTP_STATUS.INTERNAL_SERVER_ERROR)
+        .json({message: `Something went wrong! ${err.message}`});
     LOGGER.error("Server error: ", {exception: err, request: req.url});
 });
 

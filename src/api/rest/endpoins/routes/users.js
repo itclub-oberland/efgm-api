@@ -1,4 +1,4 @@
-const AUTH_ROUTER = require("@api/rest/auth/authrouter").build({mergeParams:true});
+const AUTH_ROUTER = require("@api/rest/auth/authrouter").build({mergeParams: true});
 const LOGGER = require("@api/util/logger");
 const HTTP_STATUS = require('http-status-codes/index');
 const USER_SERVICE = require("@service/user.service");
