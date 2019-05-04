@@ -195,14 +195,55 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "null"
+                  }
+                },
+                "required": [
+                  "username",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
       },
       "post": {
         "summary": "/api/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Something went wrong! Validation error"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/offers": {
@@ -334,34 +375,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "type": "string",
-                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiWmFmZXJjaTNtIiwiaWF0IjoxNTU2OTU2NjgzLCJleHAiOjE1NTcwNDMwODN9.DFBVdFfP4IkuCRAqVyd0d9wFi9xhBiOyNTsQZ2N9uiQ"
-                }
-              }
-            }
-          },
-          "500": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Something went wrong! Validation error"
-                }
-              }
-            }
-          }
-        }
+        "parameters": []
       }
     }
   },
