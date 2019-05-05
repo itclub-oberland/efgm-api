@@ -11,8 +11,8 @@ const HTTP_STATUS = require('http-status-codes');
 const LOGGER = require("./util/logger");
 
 let indexRouter = require('./rest/endpoins/api-docs');
-let apiRouter = require('./rest/endpoins/api');
-let authRouter = require('./rest/endpoins/authentication');
+let apiRouter = require('./rest/api');
+let authRouter = require('./rest/authentication');
 
 let app = express();
 

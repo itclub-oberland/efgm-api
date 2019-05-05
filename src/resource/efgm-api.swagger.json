@@ -21,142 +21,20 @@
         }
       }
     },
-    "/api/users/{userId}/contacts/{contactId}": {
+    "/api/users": {
       "get": {
-        "summary": "/api/users/{userId}/contacts/{contactId}",
+        "summary": "/api/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "put": {
-        "summary": "/api/users/{userId}/contacts/{contactId}",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "delete": {
-        "summary": "/api/users/{userId}/contacts/{contactId}",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      }
-    },
-    "/api/users/{userId}/contacts": {
-      "get": {
-        "summary": "/api/users/{userId}/contacts",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
+        "parameters": []
       },
       "post": {
-        "summary": "/api/users/{userId}/contacts",
+        "summary": "/api/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      }
-    },
-    "/api/users/{userId}/profile": {
-      "get": {
-        "summary": "/api/users/{userId}/profile",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "post": {
-        "summary": "/api/users/{userId}/profile",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "put": {
-        "summary": "/api/users/{userId}/profile",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "delete": {
-        "summary": "/api/users/{userId}/profile",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
+        "parameters": []
       }
     },
     "/api/users/{userId}": {
@@ -200,36 +78,32 @@
         ]
       }
     },
-    "/api/users": {
+    "/api/users/{userId}/profile": {
       "get": {
-        "summary": "/api/users",
+        "summary": "/api/users/{userId}/profile",
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "500": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Something went wrong! Cannot read property 'findAll' of undefined"
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
           }
-        }
+        ]
       },
-      "post": {
-        "summary": "/api/users",
+      "put": {
+        "summary": "/api/users/{userId}/profile",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ]
       }
     },
     "/api/offers": {
@@ -367,7 +241,7 @@
   },
   "info": {
     "title": "efgm-api",
-    "version": "0.0.4",
+    "version": "0.1.0",
     "description": "[Specification JSON](/api-spec)"
   }
 }
