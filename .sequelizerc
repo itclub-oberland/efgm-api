@@ -1,8 +1,24 @@
 var path = require('path');
 
+function getEnvFromEnvArg(){
+    let env = "development";
+    let envIndex = process.argv.indexOf("--env");
+    if(envIndex >= 0){
+        let envValue = process.argv[envIndex+1];
+        if(["development","production","test"].includes(envValue)){
+            env = envValue
+        }
+    }
+    return env;
+}
+
+// Quickfix for dynamic seeders path loading via --env flag
+// Note: directories development/production/test need to exist
+let env = process.env.NODE_ENV? process.env.NODE_ENV: getEnvFromEnvArg();
+
 module.exports = {
   'config': path.resolve('./src/api/service/domain', 'config/config.json'),
   'migrations-path': path.resolve('./src/api/service/domain', 'migrations'),
   'models-path': path.resolve('./src/api/service/domain', 'models'),
-  'seeders-path': path.resolve('./src/api/service/domain', 'seeders')
+  'seeders-path': path.resolve('./src/api/service/domain', `seeders/${env}`)
 }
