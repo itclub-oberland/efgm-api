@@ -19,6 +19,9 @@ Current implementation works with JWT Tokens. Will be extended later to also inc
 To run the tests, type npm test.
 
 To start the server, type npm start.
+Beware though, currently, start script is setup to
+migrate to latest changes and restore all default
+DB values on start. You might want to change those in production.
 
 You need to have a .env file for environemental settings.
 Currently, there are three keys you need to be set:
