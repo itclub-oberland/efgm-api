@@ -7,7 +7,18 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "text/html"
+        ],
+        "responses": {
+          "302": {
+            "schema": {
+              "type": "string",
+              "example": "<p>Found. Redirecting to <a href=\"/api-docs\">/api-docs</a></p>"
+            }
+          }
+        }
       }
     },
     "/api/users/{userId}/contacts/{contactId}": {
@@ -200,23 +211,14 @@
           "application/json"
         ],
         "responses": {
-          "200": {
+          "500": {
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "null"
-                  }
-                },
-                "required": [
-                  "username",
-                  "status"
-                ]
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Something went wrong! Cannot read property 'findAll' of undefined"
+                }
               }
             }
           }
@@ -227,23 +229,7 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "500": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Something went wrong! Validation error"
-                }
-              }
-            }
-          }
-        }
+        "parameters": []
       }
     },
     "/api/offers": {
@@ -381,7 +367,7 @@
   },
   "info": {
     "title": "efgm-api",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "[Specification JSON](/api-spec)"
   }
 }

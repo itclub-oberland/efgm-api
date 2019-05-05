@@ -1,6 +1,6 @@
-const persistenceConfig = require("./domain/config");
-const {Person} = persistenceConfig.models;
-const Op = persistenceConfig.operators.Op;
+const db = require("./domain/db");
+const Person = db.person;
+const Op = db.Sequelize.Op;
 
 async function createPerson(personDto) {
     let {firstname, lastname, email, birthdate, gender} = personDto;

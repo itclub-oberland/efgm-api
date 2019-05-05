@@ -1,11 +1,12 @@
 {
   "name": "efgm-api",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "private": true,
   "main": "www",
   "author": "Zafer Dogan",
   "scripts": {
     "test": "mocha --recursive",
+    "build-db": "sequelize db:migrate && sequelize db:seed:all",
     "start": "node ./scripts/start"
   },
   "dependencies": {
@@ -33,7 +34,8 @@
     "chai": "^3.5.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
-    "request": "latest"
+    "request": "latest",
+    "sequelize-cli": "^5.4.0"
   },
   "_moduleAliases": {
     "@api": "./src/api",

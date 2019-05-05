@@ -1,6 +1,6 @@
-const persistenceConfig = require("./domain/config");
-const {Offer} = persistenceConfig.models;
-const Op = persistenceConfig.operators.Op;
+const db = require("./domain/db");
+const Offer = db.offer;
+const Op = db.Sequelize.Op;
 
 async function createOffer(offerDto) {
     let {type, title, description} = offerDto;

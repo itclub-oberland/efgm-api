@@ -1,0 +1,17 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./src/resource/db/efgm_dev.sqlite",
+    "logging": true
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./src/resource/db/efgm_test.sqlite",
+    "logging": true
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./src/resource/db/efgm.sqlite",
+    "logging": false
+  }
+}

@@ -1,6 +1,6 @@
-const persistenceConfig = require("./domain/config");
-const {User} = persistenceConfig.models;
-const Op = persistenceConfig.operators.Op;
+const db = require("./domain/db");
+const User = db.user;
+const Op = db.Sequelize.Op;
 
 const roleService = require("./role.service");
 

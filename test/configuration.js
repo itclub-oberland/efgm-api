@@ -9,7 +9,7 @@ let request = require("request");
 let BASE_URI = "http://" + process.env.HOST + ":" + process.env.PORT;
 
 
-let dbConfig = require("../src/api/service/domain/config");
+let dbConfig = require("../src/api/service/domain/dbConfig");
 
 module.exports = {
     request,

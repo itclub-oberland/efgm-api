@@ -1,6 +1,6 @@
-const persistenceConfig = require("./domain/config");
-const {Role} = persistenceConfig.models;
-const Op = persistenceConfig.operators.Op;
+const db = require("./domain/db");
+const Role = db.role;
+const Op = db.Sequelize.Op;
 
 async function findRoleByName(roleName) {
     return await Role.findOne({where: {name: {[Op.eq]: roleName}}});
