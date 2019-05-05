@@ -6,8 +6,8 @@
   "author": "Zafer Dogan",
   "scripts": {
     "test": "mocha --recursive",
-    "build-db": "sequelize db:migrate && sequelize db:seed:all",
-    "start": "node ./scripts/start"
+    "prepare-db": "sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all",
+    "start": "npm run prepare-db && node ./scripts/start"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
