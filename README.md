@@ -25,10 +25,42 @@ DB values on start. You might want to change those in production.
 
 You need to have a .env file for environemental settings.
 Currently, there are three keys you need to be set:
-HOST
-PORT
-SECRET
+
+    HOST
+    PORT
+    SECRET
 
 For retrieving settings from .env, dotenv is used.
 
 Testing libary used is: Mochajs with Chai.
+
+## DB Initialization
+This project uses sequelize as an ORM with SQlite as a light-weight DB.
+Migrations as well as seeds can be run for three different environements
+
+- test
+- development
+- production
+
+Use --env flag to determine for which environement to run (for migrations as well as seeds). Default
+is "development" (i.e. no flag).
+
+You can find more details here: http://docs.sequelizejs.com/manual/migrations.html
+
+### Migrations
+To run sequlize migrations for initial DB Setup (values in [] are optional, values in <> are possible values), type:
+
+    npx sequelize-cli db:migrate [--env <test|development|production>]
+    
+### Seeds
+To run sequelize seed operation for initial DB Setup (values in [] are optional, values in <> are possible values), type:
+
+    npx sequelize-cli db:seed:all [--env <test|development|production>]
+    
+### Examples
+Test DB Setup Example:
+
+    npx sequelize-cli db:migrate
+    npx sequelize-cli db:seed:all --env test
+
+Migrates and seeds test database.
