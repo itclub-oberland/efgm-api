@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="EFGM DB Dev" uuid="e8f8d98d-0045-470f-bd11-f4f9d9e5caf3">
+    <data-source source="LOCAL" name="SQLite - efgm_dev.sqlite" uuid="498c5fc0-57e7-439a-a8d9-a4e987c0cd57">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

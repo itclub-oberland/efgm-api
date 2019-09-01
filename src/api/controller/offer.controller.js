@@ -31,8 +31,8 @@ async function getOne(req, res, next) {
 }
 
 async function update(req, res, next) {
-    let offerObj = {type, title, description} = req.body;
-    let updatedOffer = await OFFER_SERVICE.updateOfferById(req.params.offerId, offerObj);
+    let offerDto = {type, title, description} = req.body;
+    let updatedOffer = await OFFER_SERVICE.updateOfferById(req.params.offerId, offerDto);
     if (updatedOffer) {
         LOGGER.info("Offer updated:", updatedOffer);
         return res.status(HTTP_STATUS.NO_CONTENT).json();
@@ -44,7 +44,7 @@ async function update(req, res, next) {
 async function remove(req, res, next) {
     let operationStatus = Boolean(await OFFER_SERVICE.removeOfferById(req.params.offerId));
     if (operationStatus) {
-        LOGGER.info(`Offer with id ${req.params.offerId} deleted.`);
+        LOGGER.info("Offered deleted:", `Offer id ${req.params.offerId}.`);
         return res.status(HTTP_STATUS.OK).json();
     } else {
         return res.status(HTTP_STATUS.NOT_FOUND).json();

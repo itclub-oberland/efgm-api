@@ -5,14 +5,19 @@ const Op = db.Sequelize.Op;
 const roleService = require("./role.service");
 
 async function getUserByUsername(username) {
-    return await User.findOne({where: {username: {[Op.eq]: username}}});
+    return await User.findOne({
+        where: {
+            username: {
+                [Op.eq]: username
+            }
+        }
+    });
 }
 
 async function createUser(userDto) {
-    let {username, password} = userDto;
     let newUser = await User.create({
-        username,
-        password
+        username: userDto.username,
+        password: userDto.password
     });
     if (newUser) {
         let role = await roleService.findRoleByName("ROLE_USER");
@@ -31,7 +36,7 @@ async function getUserById(userId) {
     });
 }
 
-async function updateUserById(userId, updatedUser) {
+async function updateUserById(userId, updateUser) {
     let user = await User.findOne(
         {
             where:
@@ -42,9 +47,9 @@ async function updateUserById(userId, updatedUser) {
         });
     if (user) {
         let updatedUser = await user.update({
-            username: updatedUser.username,
-            password: updatedUser.password,
-            role: updatedUser.role
+            username: updateUser.username,
+            password: updateUser.password,
+            role: updateUser.role
         }, {fields: ['username', 'password', 'role']});
         return updatedUser.dataValues;
     }

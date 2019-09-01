@@ -1,9 +1,21 @@
 function authorizeWithRole(roles) {
+
+    function containsRoute(userRoles) {
+        return roles.every(role => userRoles.includes(role));
+    }
+
     return function (req, res, next) {
-        if (!req.user || roles.length === 0 || !roles.includes(req.user.dataValues.role)){
+        if (!req.user || roles.length === 0) {
             res.status(403).send("forbidden");
-        }else{
-            next();
+        } else {
+            req.user.getRoles().then((userRoles) => {
+                let simplifiedUserRoles = userRoles.map(role => role.name);
+                if (containsRoute(simplifiedUserRoles)) {
+                    next();
+                } else {
+                    res.status(403).send("forbidden");
+                }
+            });
         }
     }
 }

@@ -103,7 +103,7 @@ function buildAuthRouter(options) {
 }
 
 module.exports = {
-    build: function(options){
+    build: function (options) {
         return buildAuthRouter(options);
     }
 };

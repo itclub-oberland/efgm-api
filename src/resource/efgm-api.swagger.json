@@ -7,18 +7,148 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "/auth/login",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "summary": "/auth/signup",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/api/users/{userId}/logs": {
+      "get": {
+        "summary": "/api/users/{userId}/logs",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "summary": "/api/users/{userId}/logs",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/users/{userId}/logs/{logId}": {
+      "get": {
+        "summary": "/api/users/{userId}/logs/{logId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ],
         "produces": [
           "text/html"
         ],
         "responses": {
-          "302": {
+          "403": {
             "schema": {
               "type": "string",
-              "example": "<p>Found. Redirecting to <a href=\"/api-docs\">/api-docs</a></p>"
+              "example": "forbidden"
             }
           }
         }
+      },
+      "put": {
+        "summary": "/api/users/{userId}/logs/{logId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "summary": "/api/users/{userId}/logs/{logId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/users/{userId}/profile": {
+      "get": {
+        "summary": "/api/users/{userId}/profile",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "/api/users/{userId}/profile",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ]
       }
     },
     "/api/users": {
@@ -66,34 +196,6 @@
       },
       "put": {
         "summary": "/api/users/{userId}",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      }
-    },
-    "/api/users/{userId}/profile": {
-      "get": {
-        "summary": "/api/users/{userId}/profile",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true
-          }
-        ]
-      },
-      "put": {
-        "summary": "/api/users/{userId}/profile",
         "consumes": [
           "application/json"
         ],
@@ -220,28 +322,67 @@
         ]
       }
     },
-    "/auth/login": {
+    "/api/logs": {
+      "get": {
+        "summary": "/api/logs",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
       "post": {
-        "summary": "/auth/login",
+        "summary": "/api/logs",
         "consumes": [
           "application/json"
         ],
         "parameters": []
       }
     },
-    "/auth/signup": {
-      "post": {
-        "summary": "/auth/signup",
+    "/api/logs/{logId}": {
+      "get": {
+        "summary": "/api/logs/{logId}",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "/api/logs/{logId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "summary": "/api/logs/{logId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "logId",
+            "in": "path",
+            "required": true
+          }
+        ]
       }
     }
   },
   "info": {
     "title": "efgm-api",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "[Specification JSON](/api-spec)"
   }
 }

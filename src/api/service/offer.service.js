@@ -3,16 +3,15 @@ const Offer = db.offer;
 const Op = db.Sequelize.Op;
 
 async function createOffer(offerDto) {
-    let {type, title, description} = offerDto;
     return await Offer.create({
-        type,
-        title,
-        description
+        type: offerDto.type,
+        title: offerDto.title,
+        description: offerDto.description
     });
 }
 
-async function updateOfferById(offerId, updatedOffer) {
-    let retrievedPerson = await Offer.findOne(
+async function updateOfferById(offerId, offerDto) {
+    let offer = await Offer.findOne(
         {
             where:
                 {
@@ -20,14 +19,15 @@ async function updateOfferById(offerId, updatedOffer) {
                         {[Op.eq]: offerId}
                 }
         });
-    if (retrievedPerson) {
-        return await retrievedPerson.update({
-            type: updatedOffer.type,
-            title: updatedOffer.title,
-            description: updatedOffer.description
+    if (offer) {
+        let updatedOffer = await offer.update({
+            type: offerDto.type,
+            title: offerDto.title,
+            description: offerDto.description
         });
+        return updatedOffer.dataValues
     }
-    return null;
+    return offer;
 }
 
 async function getOfferById(offerId) {

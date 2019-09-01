@@ -1,6 +1,9 @@
 //Check package.json for alias paths (@somepath etc.)
 require('module-alias/register');
 let express = require('express');
+let rateLimit = require('express-rate-limit');
+let xss = require('xss-clean');
+let helmet = require('helmet');
 let path = require('path');
 let fs = require('fs');
 let cookieParser = require('cookie-parser');
@@ -10,7 +13,7 @@ const HTTP_STATUS = require('http-status-codes');
 
 const LOGGER = require("./util/logger");
 
-let indexRouter = require('./rest/endpoins/api-docs');
+let indexRouter = require('./rest/endpoints/api-docs');
 let apiRouter = require('./rest/api');
 let authRouter = require('./rest/authentication');
 
@@ -33,19 +36,29 @@ let accessLogStream = fs.createWriteStream(path.join(__dirname, '../resource/log
 app.use(logger('combined', {stream: accessLogStream}));
 app.use(logger('dev'));
 
-app.use(express.json());
+app.use(express.json({limit: '10kb'}));
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(helmet());
+app.use(xss());
 app.use(express.static(path.join(__dirname, '../resource/static')));
 
+const limit = rateLimit({
+    max: 100,// max requests
+    windowMs: 60 * 60 * 1000, // 1 Hour
+    message: 'Too many requests' // message to send
+});
+
+app.use('/**', limit);
+
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
-    res.locals.message = err.message;
+    res.locals.message = err.message || "Error";
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     res.status(err.status || HTTP_STATUS.INTERNAL_SERVER_ERROR)

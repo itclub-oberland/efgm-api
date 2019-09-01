@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
     log.associate = function(models) {
-        // associations can be defined here
+        log.User = log.belongsTo(models.user);
     };
     return log;
 };

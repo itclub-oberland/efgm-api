@@ -31,8 +31,8 @@ async function getOne(req, res, next) {
 }
 
 async function update(req, res, next) {
-    let userObj = {username, password} = req.body;
-    let updatedPerson = await USER_SERVICE.updateUserById(req.params.userId, userObj);
+    let userDto = {username, password} = req.body;
+    let updatedPerson = await USER_SERVICE.updateUserById(req.params.userId, userDto);
     if (updatedPerson) {
         LOGGER.info("User updated:", updatedPerson);
         return res.status(HTTP_STATUS.NO_CONTENT).json();
@@ -44,7 +44,7 @@ async function update(req, res, next) {
 async function remove(req, res, next) {
     let operationStatus = Boolean(await USER_SERVICE.removeUserById(req.params.userId));
     if (operationStatus) {
-        LOGGER.info(`User with id ${req.params.userId} deleted.`);
+        LOGGER.info("User deleted:", `User ID ${req.params.userId}.`);
         return res.status(HTTP_STATUS.OK).json();
     } else {
         return res.status(HTTP_STATUS.NOT_FOUND).json();

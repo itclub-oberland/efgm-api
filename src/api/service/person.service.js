@@ -3,18 +3,17 @@ const Person = db.person;
 const Op = db.Sequelize.Op;
 
 async function createPerson(personDto) {
-    let {firstname, lastname, email, birthdate, gender} = personDto;
     return await Person.create({
-        firstname,
-        lastname,
-        email,
-        birthdate,
-        gender
+        firstname: personDto.firstname,
+        lastname: personDto.lastname,
+        email: personDto.email,
+        birthdate: personDto.birthdate,
+        gender: personDto.gender
     });
 }
 
 async function updatePersonById(personId, updatedPerson) {
-    let retrievedPerson = await Person.findOne(
+    let person = await Person.findOne(
         {
             where:
                 {
@@ -22,16 +21,17 @@ async function updatePersonById(personId, updatedPerson) {
                         {[Op.eq]: personId}
                 }
         });
-    if (retrievedPerson) {
-        return await retrievedPerson.update({
+    if (person) {
+        let updatedPerson = await person.update({
             firstname: updatedPerson.firstname,
             lastname: updatedPerson.lastname,
             email: updatedPerson.email,
             birthdate: updatedPerson.birthdate,
             gender: updatedPerson.gender
         });
+        return updatedPerson.dataValues
     }
-    return null;
+    return person;
 }
 
 async function getPersonById(personId) {
