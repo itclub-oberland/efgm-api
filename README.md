@@ -64,3 +64,11 @@ Test DB Setup Example:
     npx sequelize-cli db:seed:all --env test
 
 Migrates and seeds test database.
+
+## Testing
+
+//TODO
+
+## TODOs
+* [ ] Testing Setup Sequlize + MochaJS
+* [ ] Write Tests for Models, Routes, Services, Controllers etc.

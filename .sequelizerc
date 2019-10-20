@@ -17,7 +17,7 @@ function getEnvFromEnvArg(){
 let env = process.env.NODE_ENV? process.env.NODE_ENV: getEnvFromEnvArg();
 
 module.exports = {
-  'config': path.resolve('./src/api/service/domain', 'config/config.json'),
+  'config': path.resolve('./src/api/service/domain', 'config/config.js'),
   'migrations-path': path.resolve('./src/api/service/domain', 'migrations'),
   'models-path': path.resolve('./src/api/service/domain', 'models'),
   'seeders-path': path.resolve('./src/api/service/domain', `seeders/${env}`)

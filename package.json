@@ -6,12 +6,15 @@
   "author": "Zafer Dogan",
   "scripts": {
     "test": "mocha --recursive",
+    "prepare-test-db": "sequelize db:migrate --env test && sequelize db:seed:all --env test",
+    "clear-test-db": "sequelize db:migrate:undo:all --env test",
     "prepare-db": "sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all",
-    "start": "npm run prepare-db && node ./scripts/start"
+    "start": "npm run prepare-db && node scripts/start.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
     "cookie-parser": "~1.4.3",
+    "cross-env": "^6.0.3",
     "debug": "~2.6.9",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
@@ -42,6 +45,8 @@
   },
   "_moduleAliases": {
     "@api": "./src/api",
-    "@service": "./src/api/service"
+    "@service": "./src/api/service",
+    "@test": "./test",
+    "@src": "./src"
   }
 }
