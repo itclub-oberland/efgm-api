@@ -70,5 +70,5 @@ Migrates and seeds test database.
 //TODO
 
 ## TODOs
-* [ ] Testing Setup Sequlize + MochaJS
+* [x] Testing Setup Sequlize + MochaJS
 * [ ] Write Tests for Models, Routes, Services, Controllers etc.
