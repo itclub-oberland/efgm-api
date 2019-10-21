@@ -7,7 +7,7 @@ let request = require("request");
 
 let BASE_URI = "http://" + process.env.HOST + ":" + process.env.PORT;
 
-before(function (done) {
+beforeEach(function (done) {
     this.timeout(15000);
     new Promise((resolve, reject) => {
         exec('npm run prepare-test-db', {}, (err) => {
@@ -22,7 +22,7 @@ before(function (done) {
     });
 });
 
-after(function (done) {
+afterEach(function (done) {
     this.timeout(15000);
     new Promise((resolve, reject) => {
         exec('npm run clear-test-db', {}, (err) => {

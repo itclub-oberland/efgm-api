@@ -34,7 +34,9 @@ expressOasGenerator.init(app,
 
 let accessLogStream = fs.createWriteStream(path.join(__dirname, '../resource/log/access.log'), {flags: 'a'});
 app.use(logger('combined', {stream: accessLogStream}));
-app.use(logger('dev'));
+if (process.env.NODE_ENV === "development") {
+    app.use(logger('dev'));
+}
 
 app.use(express.json({limit: '10kb'}));
 app.use(express.urlencoded({extended: false}));
