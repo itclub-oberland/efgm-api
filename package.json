@@ -12,7 +12,7 @@
     "start": "npm run prepare-db && node scripts/start.js"
   },
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.3",
     "cross-env": "^6.0.3",
     "debug": "~2.6.9",
